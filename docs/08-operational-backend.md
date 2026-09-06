@@ -64,6 +64,17 @@ Body: `{ "viewerId" }`
 ### Scheduled workflow: **ViewBoost Nightly Payout Batch**
 Cron `30 0 * * *` (12:30am IST daily) → invokes `vbProcessPayoutBatch`.
 
+### 5. `vbRegisterViewer` — POST
+Body: `{ "email", "name", "upiId" }` — creates a Viewer (or returns the existing one by email). UPI ID grants `kycTier: low`. Returns `{ viewerId }`.
+
+### 6. `vbListCampaigns` — POST
+Active campaigns feed for viewers: `{ id, videoUrl, tier, payoutPerView, pollQuestion, viewsDelivered, viewsPurchased }` — no creator PII.
+
+### 7. `vbGetViewerState` — POST
+Body: `{ "viewerId" }` — wallet screen data: viewer profile, balance, lifetime earnings, last 25 ledger transactions, last 25 payouts, ₹25 minimum.
+
+**Complete source for all 7 functions:** [`backend/`](../backend/) · **Standalone frontend that uses them:** [`frontend/`](../frontend/) · **Rebuild guide:** [09-rebuild-anywhere.md](09-rebuild-anywhere.md)
+
 ## End-to-end test results (2026-09-06)
 
 | Test | Input | Result |

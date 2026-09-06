@@ -25,9 +25,20 @@ This is the **strategy & intelligence layer** for ViewBoost — every document y
 | [Unicorn Roadmap](docs/05-roadmap-unicorn.md) | Phased roadmap: ₹0 → ₹15L MRR → ₹100Cr ARR thesis |
 | [India Compliance](docs/06-compliance-india.md) | GST, TDS, RBI KYC, UPI payout rules — what the platform must handle |
 | [Positioning Pivot](docs/07-positioning-pivot.md) | The strategic reframe: from "views for sale" to "viewer research & feedback marketplace" |
-| [Operational Backend](docs/08-operational-backend.md) | **Live & tested**: entity model, 4 API endpoints, verification engine rules, nightly payout workflow, full test results |
+| [Operational Backend](docs/08-operational-backend.md) | **Live & tested**: entity model, 7 API endpoints, verification engine rules, nightly payout workflow, full test results |
+| [Rebuild Anywhere](docs/09-rebuild-anywhere.md) | **The resilience doc**: rebuild the full environment from this repo in 15 minutes — SDK gotchas, acceptance tests, deploy steps |
 
 ---
+
+## 🔁 This repo IS the product (credit-proof)
+
+Everything needed to run ViewBoost lives here. If any agent loses credits or a workspace resets, a new one rebuilds the entire platform from these files alone:
+
+- **`backend/`** — all 7 API functions (deploy-ready Deno), 5 entity schemas, nightly payout workflow definition
+- **`frontend/`** — complete standalone web app: creator checkout, watch player with tab-visibility anti-cheat, UPI wallet. No build step — host anywhere (GitHub Pages, Netlify, or a Base44 app)
+- **`docs/09-rebuild-anywhere.md`** — the 15-minute rebuild guide + 10-point acceptance test suite
+
+The frontend talks to the live backend over a CORS-open API — changing ONE line in `frontend/config.js` points it at any redeployment.
 
 ## 💰 Unit economics at a glance
 

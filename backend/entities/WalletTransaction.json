@@ -1,0 +1,16 @@
+{
+  "entity": "WalletTransaction",
+  "schema": {
+    "type": "object",
+    "required": ["viewerId", "type", "amountInr", "reason", "balanceAfterInr"],
+    "properties": {
+      "viewerId": { "type": "string" },
+      "type": { "type": "string", "enum": ["credit", "debit"] },
+      "amountInr": { "type": "number" },
+      "reason": { "type": "string" },
+      "campaignId": { "type": "string" },
+      "payoutId": { "type": "string" },
+      "balanceAfterInr": { "type": "number", "description": "Wallet balance after this transaction — immutable audit trail" }
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "entity": "WatchSession",
+  "schema": {
+    "type": "object",
+    "required": ["campaignId", "viewerId", "deviceFingerprint", "status"],
+    "properties": {
+      "campaignId": { "type": "string" },
+      "viewerId": { "type": "string" },
+      "deviceFingerprint": { "type": "string", "description": "WebGL/canvas fingerprint — one device per campaign" },
+      "videoDurationSec": { "type": "integer" },
+      "viewedDurationSec": { "type": "integer", "description": "Actual watch time with playback only while tab visible" },
+      "tabVisiblePercent": { "type": "number", "description": "% of watch time the tab was visible (PageVisibility API)" },
+      "pollAnswer": { "type": "string" },
+      "pollRating": { "type": "integer" },
+      "payoutInr": { "type": "number" },
+      "status": { "type": "string", "enum": ["verified", "rejected", "flagged", "in_progress"] },
+      "rejectionReason": { "type": "string" }
+    }
+  }
+}

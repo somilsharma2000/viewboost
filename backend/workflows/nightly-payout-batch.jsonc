@@ -1,0 +1,27 @@
+// ViewBoost — nightly UPI payout batch workflow (active on Base44)
+// Fires daily at 12:30am IST (00:30 Asia/Calcutta) and invokes vbProcessPayoutBatch.
+// To recreate: create a scheduled workflow with this definition via create_or_update_workflow.
+{
+  "name": "ViewBoost Nightly Payout Batch",
+  "description": "Runs the ViewBoost UPI payout batch every night at 12:30am IST — processes all pending viewer payouts under one batch ID.",
+  "trigger": {
+    "config": {
+      "trigger_type": "scheduled",
+      "cron_expression": "30 0 * * *",
+      "timezone": "Asia/Calcutta"
+    }
+  },
+  "definition": {
+    "document": { "dsl": "1.0.0", "name": "viewboost_nightly_payout_batch", "version": "1.0", "namespace": "base44" },
+    "do": [
+      {
+        "run_payout_batch": {
+          "call": "invoke_backend_function",
+          "with": { "function_name": "vbProcessPayoutBatch", "args": {} },
+          "then": "end",
+          "x-base44": { "title": "Run UPI payout batch", "description": "Process all pending payouts in one UPI batch" }
+        }
+      }
+    ]
+  }
+}

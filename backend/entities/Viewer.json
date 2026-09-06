@@ -1,0 +1,18 @@
+{
+  "entity": "Viewer",
+  "schema": {
+    "type": "object",
+    "required": ["email", "walletBalanceInr", "status"],
+    "properties": {
+      "email": { "type": "string" },
+      "name": { "type": "string" },
+      "upiId": { "type": "string", "description": "UPI VPA e.g. name@upi — 1:1 bound to this viewer" },
+      "kycTier": { "type": "string", "enum": ["none", "low", "full"], "description": "low (OTP+UPI, up to 10k/mo) or full (Aadhaar/PAN)" },
+      "walletBalanceInr": { "type": "number" },
+      "totalEarnedInr": { "type": "number" },
+      "completedTasks": { "type": "integer" },
+      "streakDays": { "type": "integer" },
+      "status": { "type": "string", "enum": ["active", "flagged", "suspended"] }
+    }
+  }
+}

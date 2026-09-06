@@ -1,0 +1,19 @@
+{
+  "entity": "Campaign",
+  "schema": {
+    "type": "object",
+    "required": ["videoUrl", "tier", "priceInr", "viewsPurchased", "payoutPerView", "status"],
+    "properties": {
+      "videoUrl": { "type": "string" },
+      "tier": { "type": "string", "enum": ["Starter", "Growth", "Pro", "Viral"] },
+      "creatorEmail": { "type": "string" },
+      "priceInr": { "type": "number" },
+      "viewsPurchased": { "type": "integer" },
+      "viewsDelivered": { "type": "integer" },
+      "payoutPerView": { "type": "number", "description": "Viewer payout in INR per verified watch" },
+      "dripHours": { "type": "number", "description": "Delivery window for paced/drip-feed distribution" },
+      "pollQuestion": { "type": "string", "description": "Post-watch micro-poll question for audience research" },
+      "status": { "type": "string", "enum": ["active", "completed", "paused", "cancelled"] }
+    }
+  }
+}

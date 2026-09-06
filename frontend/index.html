@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ViewBoost — Reach the right audience. Reward verified attention.</title>
+  <meta name="description" content="ViewBoost connects creators with human viewers for transparent audience discovery and verified attention campaigns. No bots, no fake engagement, no passwords required." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <nav>
+    <div class="container nav-inner">
+      <div class="brand" onclick="nav('home')"><span class="dot"></span>ViewBoost</div>
+      <div class="nav-links">
+        <a id="nav-home" onclick="nav('home')">Home</a>
+        <a id="nav-creator" onclick="nav('creator')">I'm a Creator</a>
+        <a id="nav-earn" onclick="nav('earn')">Start Earning</a>
+        <a id="nav-wallet" onclick="nav('wallet')">Wallet</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============ HOME ============ -->
+  <section id="section-home" class="section visible">
+    <div class="hero">
+      <h1>Reach the right audience.<br /><span class="green">Reward verified attention.</span></h1>
+      <p class="sub">ViewBoost connects creators with human viewers for transparent audience discovery and verified attention campaigns. No bots, no fake engagement, no passwords required. Metrics are ViewBoost task metrics, not guaranteed third-party platform metrics.</p>
+      <div class="hero-cta">
+        <button class="btn btn-purple btn-lg" onclick="nav('creator')">📣 I'm a Creator</button>
+        <button class="btn btn-green btn-lg" onclick="nav('earn')">▶ Start Earning</button>
+      </div>
+      <p class="disclaimer">Third-party platform policies may restrict incentivized viewing. Use compliant campaign objectives. Payouts are processed after review and provider availability.</p>
+    </div>
+    <div class="features">
+      <span>✅ Designed for verified human attention</span>
+      <span>🕒 Watch-time verified tasks</span>
+      <span>📱 UPI payouts after review</span>
+      <span>🎧 Support during published hours</span>
+    </div>
+  </section>
+
+  <!-- ============ CREATOR ============ -->
+  <section id="section-creator" class="section">
+    <div class="container">
+      <h2>Launch a verified attention campaign</h2>
+      <p class="lead">Pick a package, drop your video link, and real humans watch it — verified with 80% watch-time completion and tab-visibility checks. You also get post-watch feedback from every viewer.</p>
+      <div class="card mt">
+        <form id="form-creator">
+          <div class="field">
+            <label>YouTube video URL</label>
+            <input id="c-video" type="url" placeholder="https://www.youtube.com/watch?v=..." required />
+          </div>
+          <label style="margin-bottom:2px">Package</label>
+          <div id="tier-select" class="tier-select"></div>
+          <div class="field">
+            <label>Email (for campaign confirmation)</label>
+            <input id="c-email" type="email" placeholder="you@example.com" required />
+          </div>
+          <button id="btn-create" type="submit" class="btn btn-purple btn-lg">Launch Campaign</button>
+        </form>
+      </div>
+      <div id="creator-result" class="hidden"></div>
+      <p class="muted small mt">By launching a campaign you agree that views are delivered as verified human watch sessions with audience feedback, not guaranteed third-party platform metrics.</p>
+    </div>
+  </section>
+
+  <!-- ============ EARN ============ -->
+  <section id="section-earn" class="section">
+    <div class="container">
+      <h2>Watch videos. Get paid to UPI.</h2>
+      <p class="lead">Watch a video fully with the tab visible, answer one feedback question, and the wallet credit lands instantly. Cash out at ₹25.</p>
+
+      <!-- onboarding -->
+      <div id="earn-auth" class="card mt hidden">
+        <h3 style="font-size:1.2rem">Create your viewer account</h3>
+        <p class="muted small" style="margin-top:6px">Takes 20 seconds. Your UPI ID is where your earnings land.</p>
+        <form id="form-register" class="mt" style="max-width:520px">
+          <div class="field">
+            <label>Email</label>
+            <input id="v-email" type="email" placeholder="you@example.com" required />
+          </div>
+          <div class="field">
+            <label>Name</label>
+            <input id="v-name" type="text" placeholder="Your name" />
+          </div>
+          <div class="field">
+            <label>UPI ID (e.g. name@upi)</label>
+            <input id="v-upi" type="text" placeholder="name@upi" />
+          </div>
+          <button id="btn-register" type="submit" class="btn btn-green btn-lg">Start Earning</button>
+        </form>
+      </div>
+
+      <!-- campaign feed -->
+      <div id="earn-main" class="mt hidden">
+        <div id="campaign-list"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WALLET ============ -->
+  <section id="section-wallet" class="section">
+    <div class="container">
+      <h2>Your wallet</h2>
+      <p class="wallet-auth-note muted lead hidden" id="wallet-auth-note" style="margin-top:10px">Create a viewer account first — tap <b>Start Earning</b>.</p>
+
+      <div id="wallet-main" class="hidden">
+        <div class="stat-cards">
+          <div class="stat-card"><div class="s-label">Wallet balance</div><div class="s-value green" id="w-balance">₹0.00</div></div>
+          <div class="stat-card"><div class="s-label">Lifetime earned</div><div class="s-value" id="w-total">₹0.00</div></div>
+          <div class="stat-card"><div class="s-label">Verified watches</div><div class="s-value" id="w-tasks">0</div></div>
+          <div class="stat-card"><div class="s-label">Streak</div><div class="s-value" id="w-streak">0 days</div></div>
+        </div>
+
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+            <div>
+              <div class="s-label muted small" style="text-transform:uppercase;letter-spacing:0.04em;font-weight:600">UPI payout</div>
+              <div class="small muted" id="w-upi" style="margin-top:4px"></div>
+            </div>
+            <button id="btn-cashout" class="btn btn-green btn-lg">💸 Cash Out to UPI</button>
+          </div>
+          <p class="muted small" id="cashout-note" style="margin-top:12px"></p>
+        </div>
+
+        <div class="grid grid-2">
+          <div class="card">
+            <h3 style="font-size:1.05rem">Recent transactions</h3>
+            <table>
+              <thead><tr><th>Date</th><th>Detail</th><th>Amount</th><th>Balance</th></tr></thead>
+              <tbody id="w-txns"></tbody>
+            </table>
+          </div>
+          <div class="card">
+            <h3 style="font-size:1.05rem">Payout history</h3>
+            <table>
+              <thead><tr><th>Date</th><th>Amount</th><th>UPI</th><th>Status</th></tr></thead>
+              <tbody id="w-payouts"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WATCH MODAL ============ -->
+  <div class="modal-backdrop" id="modal-watch">
+    <div class="modal">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+        <h3 style="font-size:1.1rem">Watch &amp; Earn <span class="pill pill-purple" id="watch-campaign-pill"></span></h3>
+        <button class="btn btn-outline" onclick="closeWatch()" style="padding:6px 14px">✕ Close</button>
+      </div>
+
+      <div class="player-wrap"><div id="yt-player"></div></div>
+
+      <div class="watch-stats">
+        <div class="stat-chip">Watched: <b id="watch-pct">0%</b> (need 80%)</div>
+        <div class="stat-chip"><b id="watch-sec">0s / 0s</b></div>
+      </div>
+      <div class="progress-bar"><div></div></div>
+
+      <div id="watch-warn" class="banner banner-err hidden">🚫 Tab hidden — playback paused. The tab must stay visible to earn this payout.</div>
+      <p class="muted small mt" id="watch-note">Keep this tab visible and watch to at least 80%. Switching tabs pauses the video — that's how we keep every view 100% human.</p>
+
+      <!-- poll -->
+      <form id="form-poll" class="hidden">
+        <div class="banner banner-ok" style="margin:0 0 16px">✅ Watch complete! One quick question to release your payment:</div>
+        <div id="watch-poll-question" style="font-weight:700;margin-bottom:2px"></div>
+        <div class="stars">
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        </div>
+        <div class="field" style="margin-top:12px">
+          <label>Your answer (optional)</label>
+          <textarea id="poll-answer" rows="2" placeholder="What would make you subscribe?"></textarea>
+        </div>
+        <button id="btn-submit-watch" type="submit" class="btn btn-green btn-lg">Submit &amp; Get Paid</button>
+      </form>
+
+      <div id="watch-result" class="banner hidden"></div>
+    </div>
+  </div>
+
+  <div id="toast"></div>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

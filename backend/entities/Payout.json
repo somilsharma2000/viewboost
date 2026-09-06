@@ -1,0 +1,16 @@
+{
+  "entity": "Payout",
+  "schema": {
+    "type": "object",
+    "required": ["viewerId", "upiId", "amountInr", "status"],
+    "properties": {
+      "viewerId": { "type": "string" },
+      "upiId": { "type": "string" },
+      "amountInr": { "type": "number" },
+      "status": { "type": "string", "enum": ["pending", "processed", "failed"] },
+      "batchId": { "type": "string", "description": "Nightly UPI batch reference" },
+      "processedAt": { "type": "string" },
+      "failureReason": { "type": "string" }
+    }
+  }
+}

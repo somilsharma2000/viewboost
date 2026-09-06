@@ -25,6 +25,7 @@ This is the **strategy & intelligence layer** for ViewBoost — every document y
 | [Unicorn Roadmap](docs/05-roadmap-unicorn.md) | Phased roadmap: ₹0 → ₹15L MRR → ₹100Cr ARR thesis |
 | [India Compliance](docs/06-compliance-india.md) | GST, TDS, RBI KYC, UPI payout rules — what the platform must handle |
 | [Positioning Pivot](docs/07-positioning-pivot.md) | The strategic reframe: from "views for sale" to "viewer research & feedback marketplace" |
+| [Operational Backend](docs/08-operational-backend.md) | **Live & tested**: entity model, 4 API endpoints, verification engine rules, nightly payout workflow, full test results |
 
 ---
 

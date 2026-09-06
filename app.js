@@ -6,12 +6,16 @@
 
 // ---------- API helper ----------
 async function api(fn, body = {}) {
-  const res = await fetch(`${API_BASE}/${fn}`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(body),
-  });
-  return await res.json();
+  try {
+    const res = await fetch(`${API_BASE}/${fn}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+    return await res.json();
+  } catch (e) {
+    return { ok: false, error: "network_error" };
+  }
 }
 
 // ---------- Utils ----------
@@ -98,6 +102,7 @@ async function createCampaign(e) {
     videoUrl: $("#c-video").value.trim(),
     tier: selectedTier,
     creatorEmail: $("#c-email").value.trim(),
+    pollQuestion: $("#c-poll").value.trim(),
   });
   btn.disabled = false; btn.textContent = "Launch Campaign";
   if (!r.ok) return toast(`Error: ${r.error}`);
@@ -193,6 +198,11 @@ async function startWatch(campaignId) {
   $("#watch-result").classList.add("hidden");
   $("#form-poll").classList.add("hidden");
   $("#watch-note").classList.remove("hidden");
+  pollRating = 0;
+  setStars(0);
+  $("#poll-answer").value = "";
+  const sBtn = $("#btn-submit-watch");
+  sBtn.disabled = false; sBtn.textContent = "Submit & Get Paid";
   $("#modal-watch").classList.add("visible");
 
   // YouTube IFrame API
@@ -207,6 +217,7 @@ async function startWatch(campaignId) {
 }
 
 function buildPlayer(vid) {
+  if (!W) return; // modal closed before player ready
   W.player = new YT.Player("yt-player", {
     videoId: vid,
     playerVars: { rel: 0, modestbranding: 1, playsinline: 1 },
@@ -282,6 +293,7 @@ document.querySelectorAll(".star").forEach((s, i) =>
 
 async function submitWatch(e) {
   e.preventDefault();
+  if (!W) return;
   if (!pollRating) return toast("Please tap a star rating first");
   const btn = $("#btn-submit-watch");
   btn.disabled = true; btn.textContent = "Verifying…";
@@ -316,7 +328,10 @@ async function submitWatch(e) {
       campaign_not_active: "this campaign is no longer active",
       campaign_fully_delivered: "all views on this campaign were already delivered",
       below_minimum_threshold: "payout threshold not met",
+      viewer_not_found: "your account could not be found — refresh the page and sign up again",
+      network_error: "network hiccup — check your connection and try again",
     };
+    if (r.error === "viewer_not_found") { localStorage.removeItem("vb_viewer_id"); }
     box.classList.add("banner-err");
     box.innerHTML = `<b>❌ Session not credited</b><br><span class="small">${reasons[r.error] || r.error}. Keep watching — the next one can still pay.</span>`;
   }

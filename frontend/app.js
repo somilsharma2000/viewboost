@@ -191,7 +191,7 @@ async function startWatch(campaignId) {
   $("#watch-campaign-pill").textContent = c.tier;
   $("#watch-poll-question").textContent = c.pollQuestion || "Rate this video 1-5 and tell us what would make you subscribe.";
   $("#watch-result").classList.add("hidden");
-  $("#poll-step").classList.add("hidden");
+  $("#form-poll").classList.add("hidden");
   $("#watch-note").classList.remove("hidden");
   $("#modal-watch").classList.add("visible");
 
@@ -267,7 +267,7 @@ function finishWatch() {
   W.player?.stopVideo?.();
   updateWatchStats();
   $("#watch-note").classList.add("hidden");
-  $("#poll-step").classList.remove("hidden");
+  $("#form-poll").classList.remove("hidden");
 }
 
 // ---------- Poll + submit verification ----------
